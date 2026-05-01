@@ -65,7 +65,8 @@ internal static class OpenSslRunner
         }
 
         StringBuilder message = new();
-        message.Append("openssl ");
+        message.Append(opensslPath);
+        message.Append(' ');
         message.Append(string.Join(' ', arguments));
         message.Append(" failed with exit code ");
         message.Append(process.ExitCode);
