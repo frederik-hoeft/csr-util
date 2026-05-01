@@ -53,7 +53,7 @@ easyrsa sign-req server app-dev
 
 ```bash
 dotnet build source/csr-util.slnx
-dotnet publish source/src/CsrUtil.Cli/CsrUtil.Cli.csproj -c Release -r linux-x64
+dotnet publish source/CsrUtil/CsrUtil.Cli/CsrUtil.Cli.csproj -c Release -r linux-x64
 ```
 
 OpenSSL must be available on `PATH`, or pass `--openssl-path /path/to/openssl`.
