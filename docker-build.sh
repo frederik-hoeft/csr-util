@@ -24,7 +24,9 @@ while getopts "o:" opt; do
 done
 
 # fall back to default output directory if not specified (./artifacts)
-build_home="$(/usr/bin/dirname "$(/usr/bin/realpath "${BASH_SOURCE[0]}")")"
+build_home="$(
+  cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P
+)"
 if [[ -z "$output_dir" ]]; then
   output_dir="${build_home}/artifacts"
 fi
