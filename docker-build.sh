@@ -29,4 +29,4 @@ if [[ -z "$output_dir" ]]; then
   output_dir="${build_home}/artifacts"
 fi
 
-docker build --target artifact --output type=local,dest="${output_dir}" "${build_home}"
+DOCKER_BUILDKIT=1 docker build --target artifact --output type=local,dest="${output_dir}" "${build_home}"
