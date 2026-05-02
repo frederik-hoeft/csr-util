@@ -11,4 +11,5 @@ internal sealed record CsrRequest(
     string OpenSslPath,
     bool Overwrite,
     bool KeepConfig,
-    DistinguishedNameOptions DistinguishedName);
+    DistinguishedNameOptions DistinguishedName,
+    string? ExistingKeyPath);
