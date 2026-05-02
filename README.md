@@ -43,7 +43,7 @@ Outputs:
 - `<prefix>.key.pem`
 - `<prefix>.csr.pem`
 
-`<prefix>` defaults to the first subject name with invalid filename characters replaced. Existing output files are not overwritten unless `--overwrite` is passed.
+`<prefix>` defaults to the first subject name with invalid filename characters replaced. Existing CSR output files are not overwritten unless `--overwrite` is passed. Private key files are never overwritten; remove the existing key file manually to generate a new one.
 
 When `--existing-key` is provided, no new key is generated and the key-related options (`--key-type`, `--rsa-bits`, `--ec-curve`) are ignored.
 
