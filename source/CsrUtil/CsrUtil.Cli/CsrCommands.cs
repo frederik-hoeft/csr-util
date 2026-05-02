@@ -21,7 +21,7 @@ public sealed class CsrCommands
     /// <param name="outputDirectory">-o, Directory for generated files.</param>
     /// <param name="prefix">-p, Output file prefix. Defaults to the first subject name with invalid filename characters replaced.</param>
     /// <param name="opensslPath">Path to the openssl executable.</param>
-    /// <param name="overwrite">Replace existing CSR file. When --existing-key is provided, only applies to the CSR output file.</param>
+    /// <param name="overwrite">Replace existing output files. When generating a new key, applies to both the private key and CSR files; when --existing-key is provided, applies only to the CSR output file.</param>
     /// <param name="keepConfig">Keep the generated OpenSSL request config next to the output files.</param>
     /// <param name="existingKey">-e, Path to an existing private key file to use instead of generating a new key.</param>
     /// <param name="country">Optional subject country code.</param>
