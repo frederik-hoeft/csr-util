@@ -22,7 +22,6 @@ RUN dotnet publish CsrUtil/CsrUtil.Cli/CsrUtil.Cli.csproj \
     -c Release \
     -r linux-x64 \
     --self-contained true \
-    --no-restore \
     -o /publish
 
 FROM scratch AS artifact
