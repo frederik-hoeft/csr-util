@@ -33,12 +33,19 @@ Comma-separated names are also accepted:
 csr-util generate app.local,api.app.local
 ```
 
+```bash
+# Use an existing private key instead of generating a new one
+csr-util generate --existing-key ./certs/app-dev.key.pem app.local api.app.local
+```
+
 Outputs:
 
 - `<prefix>.key.pem`
 - `<prefix>.csr.pem`
 
 `<prefix>` defaults to the first subject name with invalid filename characters replaced. Existing output files are not overwritten unless `--overwrite` is passed.
+
+When `--existing-key` is provided, no new key is generated and the key-related options (`--key-type`, `--rsa-bits`, `--ec-curve`) are ignored.
 
 ## EasyRSA
 

@@ -8,22 +8,32 @@ internal sealed class CsrGenerator
     {
         Directory.CreateDirectory(request.OutputDirectory);
 
-        string privateKeyPath = Path.Combine(request.OutputDirectory, $"{request.Prefix}.key.pem");
+        bool usingExistingKey = request.ExistingKeyPath is not null;
+        string privateKeyPath = usingExistingKey
+            ? request.ExistingKeyPath!
+            : Path.Combine(request.OutputDirectory, $"{request.Prefix}.key.pem");
         string csrPath = Path.Combine(request.OutputDirectory, $"{request.Prefix}.csr.pem");
         string configPath = Path.Combine(request.OutputDirectory, $".{request.Prefix}.{Guid.NewGuid():N}.openssl.cnf");
 
-        EnsureWritable(privateKeyPath, request.Overwrite);
+        if (!usingExistingKey)
+        {
+            EnsureWritable(privateKeyPath, request.Overwrite);
+        }
+
         EnsureWritable(csrPath, request.Overwrite);
 
         await EnsureOpenSslAvailableAsync(request.OpenSslPath, cancellationToken);
 
-        await GeneratePrivateKeyAsync(
-            request.OpenSslPath,
-            request.KeyType,
-            request.RsaBits,
-            request.EcCurve,
-            privateKeyPath,
-            cancellationToken);
+        if (!usingExistingKey)
+        {
+            await GeneratePrivateKeyAsync(
+                request.OpenSslPath,
+                request.KeyType,
+                request.RsaBits,
+                request.EcCurve,
+                privateKeyPath,
+                cancellationToken);
+        }
 
         await File.WriteAllTextAsync(
             configPath,
@@ -50,7 +60,8 @@ internal sealed class CsrGenerator
             PrivateKeyPath: privateKeyPath,
             CsrPath: csrPath,
             OpenSslConfigPath: request.KeepConfig ? configPath : null,
-            SubjectAlternativeNames: request.SubjectAlternativeNames);
+            SubjectAlternativeNames: request.SubjectAlternativeNames,
+            GeneratedPrivateKey: !usingExistingKey);
     }
 
     private static async Task EnsureOpenSslAvailableAsync(string opensslPath, CancellationToken cancellationToken)

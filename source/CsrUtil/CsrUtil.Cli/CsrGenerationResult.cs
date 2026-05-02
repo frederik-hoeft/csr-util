@@ -4,4 +4,5 @@ internal sealed record CsrGenerationResult(
     string PrivateKeyPath,
     string CsrPath,
     string? OpenSslConfigPath,
-    IReadOnlyList<string> SubjectAlternativeNames);
+    IReadOnlyList<string> SubjectAlternativeNames,
+    bool GeneratedPrivateKey);
