@@ -17,7 +17,10 @@ internal sealed class CsrGenerator
 
         if (!usingExistingKey)
         {
-            EnsureWritable(privateKeyPath, request.Overwrite);
+            if (File.Exists(privateKeyPath))
+            {
+                throw new IOException($"Private key already exists: {privateKeyPath}. Delete or move the existing key file before generating a new one.");
+            }
         }
 
         EnsureWritable(csrPath, request.Overwrite);
